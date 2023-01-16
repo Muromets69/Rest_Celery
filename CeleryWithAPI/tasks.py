@@ -5,7 +5,7 @@ import time
 import os
 
 @shared_task
-def drochivo(path):
+def some_task(path):
     time.sleep(4)
     print("Pizdes!")
     return True
