@@ -6,7 +6,7 @@ from .serializers import CarSerializer
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import status
-from .tasks import drochivo
+from .tasks import some_task
 import requests
 
 class CarViewSet(ModelViewSet):
@@ -19,7 +19,7 @@ class CarViewSet(ModelViewSet):
         try:
             car = Car.objects.get(name=pk)
             data = {'id':car.pk,"name":car.name,"image":"http://"+request.META['HTTP_HOST']+car.img.url}
-            drochivo.delay(car.img.url)
+            some_task.delay(car.img.url)
         except Car.DoesNotExist:
             return Response({"Error":"Not Found!"},status=status.HTTP_400_BAD_REQUEST)
         return Response({"data":data},status=status.HTTP_200_OK)
